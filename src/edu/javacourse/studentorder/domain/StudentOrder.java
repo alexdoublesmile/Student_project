@@ -10,7 +10,6 @@ public class StudentOrder {
     private long studentOrderId;
     private StudentOrderStatus studentOrderStatus;
     private LocalDateTime studentOrderDate;
-
     private Adult husband;
     private Adult wife;
     private List<Child> children;
@@ -21,8 +20,6 @@ public class StudentOrder {
     public String getMarriageCertificateId() {
         return marriageCertificateId;
     }
-
-
 
     public StudentOrderStatus getStudentOrderStatus() {
         return studentOrderStatus;

@@ -4,7 +4,9 @@ public class CityRegisterException extends Exception {
 
     private String code;
 
-    public CityRegisterException() {
+    public CityRegisterException(String code, String message, Throwable cause) {
+        super(message, cause);
+        this.code = code;
     }
 
     public CityRegisterException(String code, String message) {
@@ -12,9 +14,8 @@ public class CityRegisterException extends Exception {
         this.code = code;
     }
 
-    public CityRegisterException(String code, String message, Throwable cause) {
-        super(message, cause);
-        this.code = code;
+    public CityRegisterException() {
+
     }
 
     public String getCode() {

@@ -60,7 +60,6 @@ public class Adult extends Person {
         this.issueDate = issueDate;
     }
 
-
     public PassportOffice getIssueDepartment() {
         return issueDepartment;
     }

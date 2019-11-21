@@ -13,6 +13,16 @@ import java.util.List;
 
 public class DictionaryDaoImpl implements DictionaryDao {
 
+    private static final String REGION_SELECTION_ENDING = "0000000000";
+    private static final String DISTRICT_SELECTION_ENDING = "0000000";
+    private static final String LOCATION_SELECTION_ENDING = "0000";
+    private static final String COUNTRY_SELECTION_PATTERN = "__0000000000";
+    private static final String REGION_SELECTION_PATTERN = "___0000";
+    private static final String DISTRICT_SELECTION_PATTERN = "___0000000";
+    private static final String LOCATION_SELECTION_PATTERN = "____";
+    private static final String INVALID_AREA_ID_ERROR = "Invalid parameter 'areaId': %s";
+
+
     private static final String GET_STREET = "SELECT street_code, street_name " +
             "FROM jc_street WHERE UPPER(street_name) LIKE UPPER(?)";
 
@@ -131,14 +141,14 @@ public class DictionaryDaoImpl implements DictionaryDao {
 
     public String buildParam(String areaId) throws SQLException {
         if (areaId == null || areaId.trim().isEmpty()) {
-            return "__0000000000";
-        } else if (areaId.endsWith("0000000000")) {
-            return areaId.substring(0,2) + "___0000000";
-        } else if (areaId.endsWith("0000000")) {
-            return areaId.substring(0,5) + "___0000";
-        } else if (areaId.endsWith("0000")) {
-            return areaId.substring(0,8) + "____";
+            return COUNTRY_SELECTION_PATTERN;
+        } else if (areaId.endsWith(REGION_SELECTION_ENDING)) {
+            return areaId.substring(0,2) + REGION_SELECTION_PATTERN;
+        } else if (areaId.endsWith(DISTRICT_SELECTION_ENDING)) {
+            return areaId.substring(0,5) + DISTRICT_SELECTION_PATTERN;
+        } else if (areaId.endsWith(LOCATION_SELECTION_ENDING)) {
+            return areaId.substring(0,8) + LOCATION_SELECTION_PATTERN;
         }
-        throw new SQLException("Invalid parameter 'areaId': " + areaId);
+        throw new SQLException(String.format(INVALID_AREA_ID_ERROR, areaId));
     }
 }
